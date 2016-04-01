@@ -2,29 +2,31 @@
 from socket import *
 serverSocket = socket(AF_INET, SOCK_STREAM)
 #Prepare a server socket
-#Fill in start
-#Fill in end
+serverSocket.bind(("localhost", 80))
+serverSocket.listen(5)
 while True:
     #Establish the connection
     print 'Ready to serve...'
-    connectionSocket, addr = #Fill in start #Fill in end
+    (connectionSocket, addr) = serverSocket.accept()
     try:
-        message = #Fill in start #Fill in end
+        message = connectionSocket.recv(4096)
+        print message
         filename = message.split()[1]
         f = open(filename[1:])
-        outputdata = #Fill in start #Fill in end
+        outputdata = f.read()
         #Send one HTTP header line into socket
-        #Fill in start
-        #Fill in end
+        connectionSocket.send("HTTP/1.0 200 OK\r\n")
         #Send the content of the requested file to the client
         for i in range(0, len(outputdata)):
             connectionSocket.send(outputdata[i])
         connectionSocket.close()
     except IOError:
         #Send response message for file not found
-        #Fill in start
-        #Fill in end
+        print "404"
+        connectionSocket.send("HTTP/1.0 404 NOT FOUND\r\nFile not found")
+    except IndexError:
+        pass
     #Close client socket
-    #Fill in start
-    #Fill in end
-serverSocket.close()
+    connectionSocket.close()
+serverSocket.close()
+
