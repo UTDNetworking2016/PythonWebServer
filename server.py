@@ -19,11 +19,10 @@ while True:
         #Send the content of the requested file to the client
         for i in range(0, len(outputdata)):
             connectionSocket.send(outputdata[i])
-        connectionSocket.close()
     except IOError:
         #Send response message for file not found
         print "404"
-        connectionSocket.send("HTTP/1.0 404 NOT FOUND\r\n\r\nFile not found")
+        connectionSocket.send("HTTP/1.0 404 NOT FOUND\r\n\r\n404: File not found")
     except IndexError:
         pass
     #Close client socket
