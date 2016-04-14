@@ -4,6 +4,7 @@ serverSocket = socket(AF_INET, SOCK_STREAM)
 #Prepare a server socket
 serverSocket.bind(("localhost", 80))
 serverSocket.listen(5)
+serverSocket.settimeout(3)
 try:
     while True:
         #Establish the connection
@@ -25,6 +26,8 @@ try:
             print "404"
             connectionSocket.send("HTTP/1.0 404 NOT FOUND\r\n\r\n404: File not found")
         except IndexError:
+            pass
+        except timeout:
             pass
         #Close client socket
         connectionSocket.close()
