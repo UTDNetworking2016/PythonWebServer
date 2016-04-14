@@ -9,8 +9,8 @@ try:
     while True:
         #Establish the connection
         print 'Ready to serve...'
-        (connectionSocket, addr) = serverSocket.accept()
         try:
+            (connectionSocket, addr) = serverSocket.accept()
             message = connectionSocket.recv(4096)
             print message
             filename = message.split()[1]
