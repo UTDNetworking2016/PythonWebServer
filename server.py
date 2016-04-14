@@ -37,6 +37,7 @@ try:
             pass
 except KeyboardInterrupt:
     pass
+print "Closing down"
 serverSocket.close()
 
 
