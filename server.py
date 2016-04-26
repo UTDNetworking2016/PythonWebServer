@@ -4,9 +4,8 @@ def run_thread(connectionSocket, addr):
         filename = message.split()[1]
         f = open(filename[1:])
         outputdata = f.read()
-        #Send one HTTP header line into socket
+        #Send HTTP message over socket
         connectionSocket.send("HTTP/1.0 200 OK\r\n\r\n" + outputdata)
-        #Send the content of the requested file to the client
     except IOError:
         #Send response message for file not found
         connectionSocket.send("HTTP/1.0 404 NOT FOUND\r\n\r\n404: File not found")
